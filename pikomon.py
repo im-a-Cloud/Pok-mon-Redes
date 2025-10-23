@@ -63,7 +63,6 @@ class PokemonClient:
             return None
     
     def decodificar_resposta_chunked(self, response):
-        """Decodifica resposta HTTP com Transfer-Encoding: chunked"""
         if not response:
             return None
             
@@ -80,7 +79,6 @@ class PokemonClient:
             return body
     
     def _decodificar_chunked(self, chunked_body):
-        """Decodifica o formato chunked"""
         decoded_data = ""
         lines = chunked_body.split('\r\n')
         i = 0
@@ -165,7 +163,6 @@ class PokemonClient:
         return None
     
     def processar_dados_pokemon(self, dados):
-        """Processa e formata os dados do Pokémon"""
         try:
             pokemon = {
                 'id': dados['id'],
@@ -240,7 +237,7 @@ class PokemonClient:
         gen_info = self.geracoes[geracao]
         ultimas_evolucoes = []
         
-        print(f"Buscando pokémons no seu último estágio evolutivo (isso pode demorar)")
+        print(f"Buscando pokémons (isso pode demorar)")
         
         # Verificar Pokémon da geração que são últimas evoluções
         for pokemon_id in range(gen_info['inicio'], gen_info['fim'] + 1):
@@ -257,9 +254,7 @@ class PokemonClient:
             return []
         
         gen_info = self.geracoes[geracao]
-        print(f"\nGERANDO TIME DA GERAÇÃO {geracao}: {gen_info['nome']}(isso demora, paciência)")
-        print("Buscando apenas pokémons no último estágio...")
-        
+        print(f"\nGERANDO TIME DA GERAÇÃO {geracao}: {gen_info['nome']}(isso demora, paciência)")        
         # Obter últimas evoluções da geração
         ultimas_evolucoes = self.obter_ultimas_evolucoes_geracao(geracao)
         
@@ -281,7 +276,6 @@ class PokemonClient:
         return time
 
     def time_tematico(self, tipo, tamanho=6):
-        """Cria um time temático baseado em um tipo específico"""
         print(f"\nGERANDO TIME DO TIPO: {tipo.upper()}")
         print("Buscando Pokémon...")
         
@@ -318,7 +312,6 @@ class PokemonClient:
         return time
 
     def pokemon_aleatorio(self):
-        """Busca um Pokémon aleatório de qualquer geração"""
         pokemon_id = random.randint(1, 1025)
         pokemon = self.buscar_pokemon(str(pokemon_id))
         
@@ -339,7 +332,6 @@ class PokemonClient:
             return None
 
     def analisar_time(self, time):
-        """Analisa a composição do time - Versão simplificada"""
         if not time:
             print("Time vazio!")
             return
@@ -348,12 +340,10 @@ class PokemonClient:
         print(f"\nTime gerado com {len(time)} Pokémon!")
 
     def calcular_poder_total(self, pokemon):
-        """Calcula o poder total baseado nas estatísticas"""
         stats = pokemon['stats']
         return sum(stats.values())
 
     def mostrar_pokemon(self, pokemon):
-        """Exibe informações formatadas do Pokémon"""
         print(f"\n#{pokemon['id']} {pokemon['nome']}")
         print(f"Altura: {pokemon['altura']}m | Peso: {pokemon['peso']}kg")
         print(f"Tipos: {', '.join(pokemon['tipos'])}")
@@ -408,7 +398,7 @@ def main():
                 print("Geração inválida!")
                 
         elif opcao == "4":
-            tipo = input("Tipo para o time temático (Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, e Fairy): ").strip()
+            tipo = input("Tipos para times baseados em tipo (Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, e Fairy): ").strip()
             if tipo:
                 try:
                     tamanho = int(input("Tamanho do time (padrão 6): ") or "6")
